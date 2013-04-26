@@ -1,18 +1,10 @@
-as3rpclib
-==========
+-------
 
-Actionscript 3 RPC libraries for flash-remoting(amf0), xml-rpc, json-rpc
-
-Introduction
-------------
-
-As3 RPC lib is a set of libraries that can be used with Flex 2 or AS 3 to invoke remote procedure calls using:
+As3 RPC lib is a library that can be used to invoke remote procedure calls using:
 
  * [AMF0](http://download.macromedia.com/pub/labs/amf/amf0_spec_121207.pdf)
  * [XML-RPC](http://www.xmlrpc.com/spec)
  * [JSON-RPC](http://json-rpc.org/wiki/specification)
-
-Usage mimics the RemoteObject which is available natively in Flex 2 in an effort to make usage in existing frameworks (e.g. Cairngorm) and design pattern (e.g. Token pattern) easy as possible.
 
 Releases
 -------
@@ -38,7 +30,7 @@ Changelog
  * Starting add comments in all code
  * [Applied fix](http://ak33m.com/?p=50)
 
-[Older versions](https://github.com/Webysther/as3rpclib/blob/master/CHANGELOG.md) 
+[Older versions information](https://github.com/Webysther/as3rpclib/blob/master/CHANGELOG.md) 
 
 Support
 -------
