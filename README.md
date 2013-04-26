@@ -1,4 +1,4 @@
-as-3rpclib
+as3rpclib
 ==========
 
 Actionscript 3 RPC libraries for flash-remoting(amf0), xml-rpc, json-rpc
