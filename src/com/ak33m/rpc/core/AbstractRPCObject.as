@@ -1,42 +1,29 @@
 /**
- * Copyright (c) 2007, Akeem Philbert (based on the work of (between others): Jesse Warden, Xavi Beumala, Renaun 
-	Erickson, Carlos Rovira)
-	All rights reserved.
-	Redistribution and use in source and binary forms, with or without modification, are permitted provided that the 
-	following conditions are met:
-	
-	    * Redistributions of source code must retain the above copyright notice, this list of conditions and the following 
-		  disclaimer.
-	    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the 
-		  following disclaimer in the documentation and/or other materials provided with the distribution.
-	    * Neither the name of the Akeem Philbert nor the names of its contributors may be used to endorse or promote 
-		  products derived from this software without specific prior written permission.
-	
-	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
-	INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-	DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
-	SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-	SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-	WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
-	OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
+ *
+ * @package		com.ak33m.rpc.core
+ * 
+ * @copyright	Akeem Philbert, Webysther Nunes
+ * @license		http://opensource.org/licenses/BSD-3-Clause New BSD License
+ */
 package com.ak33m.rpc.core
 {
 	import flash.net.NetConnection;
 	import flash.net.ObjectEncoding;
 	import flash.net.Responder;
 	import flash.utils.*;
+	import flash.events.Event;
+	
 	import mx.rpc.*;
 	import mx.managers.CursorManager;
 	import mx.collections.ArrayCollection;
 	import mx.rpc.mxml.IMXMLSupport;
 	import mx.rpc.events.*;
-	import com.ak33m.rpc.core.*;
-	import com.ak33m.rpc.amf0.*;
 	import mx.messaging.messages.IMessage;
 	import mx.messaging.messages.RemotingMessage;
-	import flash.events.Event;
+	
+	import com.ak33m.rpc.core.*;
+	import com.ak33m.rpc.amf0.*;
+	
 	use namespace flash_proxy;
 	
 	//EVENTS
@@ -47,34 +34,100 @@ package com.ak33m.rpc.core
 	[Bindable]
 	
 	/**
-	 * @author Akeem Philbert <akeemphilbert@gmail.com>
-	 * @author Carlos Rovira <carlos.rovira@gmail.com>
 	 * The AMF0RemoteObject lets you invoke commands on a  RPC Server that uses the AMF0 format (e.g. Flash Remoting MX, AMFPHP 1.0).
-	 * It mimics the built in RemoteObject and can be accessed from both MXML and actionscript 3.0 
+	 * It mimics the built in RemoteObject and can be accessed from both MXML and actionscript 3.0
+	 * 
+	 * @author	Akeem Philbert	<akeemphilbert@gmail.com>
+	 * @author	Carlos Rovira	<carlos.rovira@gmail.com>
 	 */
 	dynamic public class AbstractRPCObject extends AbstractService implements IMXMLSupport
 	{
+		/**
+		 * @var String
+		 */		
 		public static const MULTIPLE : String = "multiple";
+		
+		/**
+		 * @var String
+		 */		
         public static const SINGLE : String = "single";
+		
+		/**
+		 * @var String
+		 */		
         public static const LAST : String = "last";
         
-        //private var _gateway:IRPCConnection = null;
-        protected var _isbusy:Boolean = false;
-        protected var _appservername:String;
+		/**
+		 * @var Boolean 
+		 */        
+        protected var _isbusy : Boolean = false;
+		
+		/**
+		 * @var String
+		 */		
+        protected var _appservername : String;
+		
+		/**
+		 * @var ArrayCollection
+		 */		
         [ArrayElementType("Responder")]
-        protected var _responders:ArrayCollection;
+        protected var _responders : ArrayCollection;
+		
+		/**
+		 * @var Number 
+		 */		
         protected var _requestTimeout:Number = 0;
+		
+		/**
+		 * @var Boolean 
+		 */		
         protected var _showBusyCursor:Boolean = false;
+		
+		/**
+		 * @var String 
+		 */		
         protected var _destination:String;
+		
+		/**
+		 * @var String 
+		 */		
         protected var _concurrency:String = "multiple";
+		
+		/**
+		 * @var String 
+		 */		
         protected var _endpoint:String;
+		
+		/**
+		 * @var String 
+		 */		
         protected var _id:String;
+		
+		/**
+		 * @var Object 
+		 */		
         protected var _view:Object;
+		
+		/**
+		 * @var Function 
+		 */		
         public var call:Function;
+		
+		/**
+		 * @var mixed 
+		 */		
         public var method:*;
+		
+		/**
+		 * @var int 
+		 */		
  		private var _respondercounter:int = 0;
  		
-        function AbstractRPCObject ()
+		/**
+		 * 
+		 * 
+		 */		
+        public function AbstractRPCObject () : void
         {
         	super();
         	this._responders = new ArrayCollection();
@@ -87,32 +140,39 @@ package com.ak33m.rpc.core
 			return new AbstractRestriction();
 		}
         /**
-        *@inheritDoc
-        */
+         *	@inheritDoc
+         */
         public function get showBusyCursor ():Boolean
         {
         	return this._showBusyCursor;
         }
         
         /**
-        *If <code>true</code>, a busy cursor is displayed while a service is executing. The default value is <code>false.</code>
-        */
+         *	If <code>true</code>, a busy cursor is displayed while a service is executing. The default value is <code>false.</code>
+         */
         public function set showBusyCursor (showcursor:Boolean):void
         {
         	this._showBusyCursor = showcursor;
         }
         
         /**
-        * Value that indicates how to handle multiple calls to the same service.
-        * 
-        * <p>
-        * The following values are permitted:
-        * <ul>
-        * 	<li><code>AMF0RemoteObject.MULTIPLE</code>. Existing requests are not cancelled, and the developer is responsible for ensuring the consistency of returned data by carefully managing the event stream. This is the default.</li>
-        * 	<li><code>AMF0RemoteObject.SINGLE</code>. Only a single request at a time is allowed on the operation; multiple requests generate a fault.</li>
-        * 	<li><code>AMF0RemoteObject.LAST</code>. Making a request cancels any existing request.</li>
-        * </ul>
-        */
+		 * Value that indicates how to handle multiple calls to the same service.
+         * 
+		 * <p>
+         * The following values are permitted:
+         * <ul>
+         * 	<li>
+		 * 		<code>AMF0RemoteObject.MULTIPLE</code>. 
+		 * 		Existing requests are not cancelled, and the developer is responsible for ensuring the consistency of 
+		 * 		returned data by carefully managing the event stream. This is the default.
+		 * 	</li>
+         * 	<li>
+		 * 		<code>AMF0RemoteObject.SINGLE</code>. Only a single request at a time is allowed on the operation; 
+		 * 		multiple requests generate a fault.
+		 *	</li>
+         * 	<li><code>AMF0RemoteObject.LAST</code>. Making a request cancels any existing request.</li>
+         * </ul>
+         */
         public function get concurrency ():String
         {
         	return this._concurrency;
@@ -211,6 +271,11 @@ package com.ak33m.rpc.core
             return ttoken;
         }
         
+		/**
+		 * 
+		 * @param event
+		 * 
+		 */		
         protected function onRemoveResponder (event:Event):void //This method should be deprecated
         {
         	//this._responders.removeItemAt(this._responders.getItemIndex(event.target));
@@ -258,6 +323,12 @@ package com.ak33m.rpc.core
 			this.respondercounter--;
 		}
 		
+		/**
+		 * 
+		 * @param view
+		 * @param id
+		 * 
+		 */		
 		public function initialized(view:Object,id:String):void
 		{
 			this._view = view;
@@ -265,11 +336,20 @@ package com.ak33m.rpc.core
 			trace (id);
 		}
 		
+		/**
+		 * 
+		 * 
+		 */		
 		protected function send ():void
 		{
 			
 		}
 		
+		/**
+		 * 
+		 * @param counter
+		 * 
+		 */		
 		protected function set respondercounter (counter:int):void
          {
          	this._respondercounter = counter;
@@ -286,13 +366,16 @@ package com.ak33m.rpc.core
          	}
          }
          
+		 /**
+		  * 
+		  * @return 
+		  * 
+		  */		
          protected function get respondercounter ():int
          {
          	return this._respondercounter;
          }
 	}
 }
-internal class AbstractRestriction
-{
-		
-}
+
+internal class AbstractRestriction{}

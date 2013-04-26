@@ -1,82 +1,103 @@
 /**
- * Copyright (c) 2007, Akeem Philbert (based on the work of (between others): Jesse Warden, Xavi Beumala, Renaun 
-	Erickson, Carlos Rovira)
-	All rights reserved.
-	Redistribution and use in source and binary forms, with or without modification, are permitted provided that the 
-	following conditions are met:
-	
-	    * Redistributions of source code must retain the above copyright notice, this list of conditions and the following 
-		  disclaimer.
-	    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the 
-		  following disclaimer in the documentation and/or other materials provided with the distribution.
-	    * Neither the name of the Akeem Philbert nor the names of its contributors may be used to endorse or promote 
-		  products derived from this software without specific prior written permission.
-	
-	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
-	INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-	DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
-	SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-	SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-	WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
-	OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ *
+ * @package		com.ak33m.rpc.amf0
+ * 
+ * @copyright	Akeem Philbert, Webysther Nunes
+ * @license		http://opensource.org/licenses/BSD-3-Clause New BSD License
+ */
 package com.ak33m.rpc.amf0
 {
 	import com.ak33m.rpc.core.*;
-	import mx.rpc.AsyncToken;
+	
 	import mx.managers.CursorManager;
 	import mx.messaging.messages.IMessage;
 	import mx.messaging.messages.RemotingMessage;
+	import mx.rpc.AsyncToken;
 	import mx.rpc.events.*;
+	
+	/**
+	 *
+	 * @author	Akeem Philbert	<akeemphilbert@gmail.com>
+	 */
 	dynamic public class AMF0Object extends AbstractRPCObject
 	{
+		/**
+		 * @var	 AMF0Connection
+		 */		
 		protected var _gateway:AMF0Connection;
 		
-		public function AMF0Object(endpoint:String=null)
+		/**
+		 * 
+		 * @param	String endpoint
+		 * 
+		 * @return	void
+		 */		
+		public function AMF0Object( endpoint : String = null ) : void
 		{
 			super();
 			this.endpoint = endpoint;
 		}
 		
-		override public function set endpoint (endpoint:String):void
+		/**
+		 * 
+		 * @param	String	endpoint
+		 * 
+		 * @return	void
+		 */		
+		override public function set endpoint( endpoint : String ) : void
 		{
 			this._endpoint = endpoint;
 			this.makeConnection();
 		}
 		
-		override protected function makeCall (method : String,args : Array): AsyncToken
+		/**
+		 * 
+		 * @param	String	method
+		 * @param	Array	args
+		 * 
+		 * @return	AsyncToken
+		 */		
+		override protected function makeCall( method : String , args : Array ) : AsyncToken
         {
-        	var tmessage:RemotingMessage = new RemotingMessage();
+        	var tmessage : RemotingMessage = new RemotingMessage();
         	tmessage.operation = method;
         	tmessage.destination = this.destination;
-        	var ttoken:AsyncToken = new AsyncToken(tmessage);
-            var responder:RPCResponder = new RPCResponder (ttoken);
+			
+        	var ttoken:AsyncToken = new AsyncToken( tmessage );
+            var responder:RPCResponder = new RPCResponder ( ttoken );
+			
             responder.timeout = this.requestTimeout;
-            responder.addEventListener(RPCEvent.EVENT_RESULT,this.onResult);
-            responder.addEventListener(RPCEvent.EVENT_FAULT,this.onFault);
-            responder.addEventListener(RPCEvent.EVENT_CANCEL,this.onRemoveResponder);
-            _responders.addItem(responder);
+            responder.addEventListener( RPCEvent.EVENT_RESULT , this.onResult );
+            responder.addEventListener( RPCEvent.EVENT_FAULT , this.onFault );
+            responder.addEventListener( RPCEvent.EVENT_CANCEL , this.onRemoveResponder );
+            _responders.addItem( responder );
+			
             var params : Array = args;
             
-             if (args.length > 0)
-            {
-                params.unshift(this._destination+"."+method,responder);
-                this._gateway.call.apply(this._gateway,params);
+            if ( args.length > 0 )
+			{
+                params.unshift( this._destination + "." + method , responder );
+                this._gateway.call.apply( this._gateway , params );
             }
             else
             {
-                this._gateway.call(this._destination+"."+method,responder);
+                this._gateway.call( this._destination + "." + method , responder );
             }
-            dispatchEvent (new InvokeEvent("invoke",false,true,ttoken,ttoken.message));
+			 
+            dispatchEvent( new InvokeEvent( "invoke" , false , true , ttoken , ttoken.message ) );
             
              //Show Busy cursor 
-             this.respondercounter++;
+			this.respondercounter++;
             return ttoken;
         }
         
-        public function makeConnection ():void
+		/**
+		 * 
+		 * @return	void
+		 */		
+        public function makeConnection() : void
         {
-        	this._gateway = new AMF0Connection(this._endpoint);
+        	this._gateway = new AMF0Connection( this._endpoint );
         }
 		
 	}

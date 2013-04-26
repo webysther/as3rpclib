@@ -1,26 +1,10 @@
 /**
- * Copyright (c) 2007, Akeem Philbert (based on the work of (between others): Jesse Warden, Xavi Beumala, Renaun 
-	Erickson, Carlos Rovira)
-	All rights reserved.
-	Redistribution and use in source and binary forms, with or without modification, are permitted provided that the 
-	following conditions are met:
-	
-	    * Redistributions of source code must retain the above copyright notice, this list of conditions and the following 
-		  disclaimer.
-	    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the 
-		  following disclaimer in the documentation and/or other materials provided with the distribution.
-	    * Neither the name of the Akeem Philbert nor the names of its contributors may be used to endorse or promote 
-		  products derived from this software without specific prior written permission.
-	
-	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
-	INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-	DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
-	SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
-	SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-	WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
-	OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
+ *
+ * @package		com.ak33m.rpc.core
+ * 
+ * @copyright	Akeem Philbert, Webysther Nunes
+ * @license		http://opensource.org/licenses/BSD-3-Clause New BSD License
+ */
 package com.ak33m.rpc.xmlrpc
 {
 	import mx.utils.Base64Encoder;
@@ -32,6 +16,10 @@ package com.ak33m.rpc.xmlrpc
 	import flash.xml.XMLNode;
 	import flash.xml.XMLDocument;
 	
+	/**
+	 *
+	 * @author	Akeem Philbert	<akeemphilbert@gmail.com>
+	 */
 	public class XMLRPCSerializer
 	{
 		internal static const TYPE_INT:String = "int";
@@ -44,11 +32,22 @@ package com.ak33m.rpc.xmlrpc
 		internal static const TYPE_STRUCT:String = "struct";
 		internal static const TYPE_DATE:String = "dateTime.iso8601";
 		
+		/**
+		 * 
+		 * 
+		 */		
 		public function XMLRPCSerializer ()
 		{
 			
 		}
 		
+		/**
+		 * 
+		 * @param method
+		 * @param params
+		 * @return 
+		 * 
+		 */		
 		public static function serialize (method:String,params:Array):XML
 		{
 			var xmlrpc:XML = <methodCall>
@@ -67,6 +66,12 @@ package com.ak33m.rpc.xmlrpc
 			return xmlrpc;		
 		}
 		
+		/**
+		 * 
+		 * @param tobject
+		 * @return 
+		 * 
+		 */		
 		protected static function encodeObject (tobject:*):XMLList
 		{
 			var txmllist:XMLList;
@@ -110,27 +115,57 @@ package com.ak33m.rpc.xmlrpc
 			return txmllist;
 		}
 		
+		/**
+		 * 
+		 * @param rstring
+		 * @return 
+		 * 
+		 */		
 		protected static function encodeString(rstring:String):XMLList
 		{
 			return new XMLList("<"+TYPE_STRING+">"+rstring+"</"+TYPE_STRING+">");
 		}
 		
+		/**
+		 * 
+		 * @param rboolean
+		 * @return 
+		 * 
+		 */		
 		protected static function encodeBoolean (rboolean:Boolean):XMLList
 		{
 			var xmlrpcboolean:String = rboolean ? "1" : "0";
 			return new XMLList("<"+TYPE_BOOLEAN+">"+xmlrpcboolean+"</"+TYPE_BOOLEAN+">");
 		}
 		
+		/**
+		 * 
+		 * @param rinteger
+		 * @return 
+		 * 
+		 */		
 		protected static function encodeInteger (rinteger:int):XMLList
 		{
 			return new XMLList("<"+TYPE_INT+">"+rinteger+"</"+TYPE_INT+">");
 		}
 		
+		/**
+		 * 
+		 * @param rdouble
+		 * @return 
+		 * 
+		 */		
 		protected static function encodeDouble (rdouble:Number):XMLList
 		{
 			return new XMLList("<"+TYPE_DOUBLE+">"+rdouble+"</"+TYPE_DOUBLE+">");
 		}
 		
+		/**
+		 * 
+		 * @param rdate
+		 * @return 
+		 * 
+		 */		
 		protected static function encodeDate (rdate:Date):XMLList
 		{
 			var tdateformatter:DateFormatter = new DateFormatter();
@@ -139,6 +174,12 @@ package com.ak33m.rpc.xmlrpc
 			return new XMLList("<"+TYPE_DATE+">"+tdatestring+"</"+TYPE_DATE+">");
 		}
 		
+		/**
+		 * 
+		 * @param rarray
+		 * @return 
+		 * 
+		 */		
 		protected static function encodeArray (rarray:Array):XMLList
 		{
 			var tarrayxml:XML = <array>
@@ -153,6 +194,12 @@ package com.ak33m.rpc.xmlrpc
 			return new XMLList(tarrayxml);
 		}
 		
+		/**
+		 * 
+		 * @param rbase64
+		 * @return 
+		 * 
+		 */		
 		protected static function encodeBase64 (rbase64:ByteArray):XMLList
 		{
 			var enc:Base64Encoder = new Base64Encoder();
@@ -160,6 +207,12 @@ package com.ak33m.rpc.xmlrpc
 			return new XMLList("<"+TYPE_BASE64+">"+enc.flush()+"</"+TYPE_BASE64+">");
 		}
 		
+		/**
+		 * 
+		 * @param rprops
+		 * @return 
+		 * 
+		 */		
 		protected static function encodeStruct (rprops:*):XMLList
 		{
 			var tstructxml:XML = <struct>
@@ -171,6 +224,12 @@ package com.ak33m.rpc.xmlrpc
 			return new XMLList(tstructxml);
 		}
 		
+		/**
+		 * 
+		 * @param rxmlresult
+		 * @return 
+		 * 
+		 */		
 		public static function deserialize (rxmlresult:XMLDocument):*
 		{
 			var xmlresult:XML = new XML(rxmlresult.toString());
@@ -190,6 +249,12 @@ package com.ak33m.rpc.xmlrpc
 			}
 		}
 		
+		/**
+		 * 
+		 * @param robject
+		 * @return 
+		 * 
+		 */		
 		protected static function decodeObject (robject:*):*
 		{
 			if (robject.children().name() == TYPE_STRING)
