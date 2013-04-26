@@ -33,8 +33,12 @@ Based on the work of (between others):
  * Xavi Beumala
  * Renaun Erickson
  * Carlos Rovira
+ 
+This code use part of:
 
-License
+ * [as3corelib (com.adobe.serialization.json.*)](https://github.com/mikechambers/as3corelib)
+
+Licenses
 -------
 
 <pre>
