@@ -40,7 +40,7 @@ Licenses
 -------
 
 <pre>
-Copyright (c) 2013, Akeem Philbert, Webysther Faria, Adobe Systems Incorporated
+Copyright (c) 2013, Akeem Philbert, Webysther Faria
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
