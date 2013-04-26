@@ -25,7 +25,7 @@ Authors
 -------
 
  * Akeem Philbert
- * Webysther Faria <webysther@gmail.com>
+ * Webysther Faria - <webysther@gmail.com>
 
 Based on the work of (between others):
 
