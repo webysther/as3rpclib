@@ -14,6 +14,32 @@ As3 RPC lib is a set of libraries that can be used with Flex 2 or AS 3 to invoke
 
 Usage mimics the RemoteObject which is available natively in Flex 2 in an effort to make usage in existing frameworks (e.g. Cairngorm) and design pattern (e.g. Token pattern) easy as possible.
 
+Releases
+-------
+
+For simple use purposes, just download the ./bin/as3rpclib.swc file in respective tag and add in your lib folder.
+
+ * [*v1.0a*](https://github.com/Webysther/as3rpclib/tree/v1.0a)
+
+Old versions (not recommended)
+
+ * [*v0.5*](https://as3-rpclib.googlecode.com/files/as3-rpclibv0.5.zip) 
+
+Changelog
+-------
+
+### latest
+
+ * Add project to github
+ * Compiled using SDK 4.5.1 (4.5.1.21328A)
+ * Fix bug's for newest SDK (> SDK 3)
+ * Add class XMLRPCStruct (working)
+ * New simple structure e compiled version
+ * Starting add comments in all code
+ * [Applied fix](http://ak33m.com/?p=50)
+
+[Older versions](https://github.com/Webysther/as3rpclib/blob/master/CHANGELOG.md) 
+
 Support
 -------
 
@@ -32,7 +58,7 @@ Based on the work of (between others):
  * Renaun Erickson
  * Carlos Rovira
  
-This code use part of:
+This code use part of as3corelib in json-rpc:
 
  * [as3corelib (com.adobe.serialization.json.*)](https://github.com/mikechambers/as3corelib)
 
