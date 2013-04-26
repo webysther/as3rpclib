@@ -1,3 +1,17 @@
+CHANGELOG
+========
+
+2013-04-26 v.1.0a
+----------
+
+ * Add project to github
+ * Compiled using SDK 4.5.1 (4.5.1.21328A)
+ * Fix bug's for newest SDK (> SDK 3)
+ * Add class XMLRPCStruct (working)
+ * New simple structure e compiled version
+ * Starting add comments in all code
+ * [Applied fix](http://ak33m.com/?p=50)
+
 2008-04-16
 ----------
 
