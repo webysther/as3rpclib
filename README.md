@@ -18,6 +18,7 @@ Authors
 -------
 
  * Akeem Philbert
+ * Webysther Faria <webysther@gmail.com>
 
 Based on the work of (between others):
 
@@ -25,10 +26,6 @@ Based on the work of (between others):
  * Xavi Beumala
  * Renaun Erickson
  * Carlos Rovira
-
-Maintainer
-
- * Webysther Faria <webysther@gmail.com>
 
 License
 -------
