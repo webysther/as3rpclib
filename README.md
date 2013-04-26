@@ -8,9 +8,9 @@ Introduction
 
 As3 RPC lib is a set of libraries that can be used with Flex 2 or AS 3 to invoke remote procedure calls using:
 
- * AMF0 (Flash Remoting MX)
- * XML-RPC
- * JSON-RPC
+ * [AMF0](http://download.macromedia.com/pub/labs/amf/amf0_spec_121207.pdf)
+ * [XML-RPC](http://www.xmlrpc.com/spec)
+ * [JSON-RPC](http://json-rpc.org/wiki/specification)
 
 Usage mimics the RemoteObject which is available natively in Flex 2 in an effort to make usage in existing frameworks (e.g. Cairngorm) and design pattern (e.g. Token pattern) easy as possible.
 
@@ -18,8 +18,6 @@ Support
 -------
 
  * [Documentation](https://github.com/Webysther/as3rpclib/wiki/Documentation)
- * [Specifications](https://github.com/Webysther/as3rpclib/wiki/Specifications)
-
 
 Authors
 -------
