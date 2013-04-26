@@ -1,0 +1,13 @@
+#### `.gitignore`
+
+#Flash Builder
+.actionScriptProperties
+.flexProperties
+.project
+.settings
+bin/*
+bin-debug/*
+report/*
+bin-test/*
+docs/*
+.flexLibProperties
