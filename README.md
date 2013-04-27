@@ -1,6 +1,6 @@
 -------
 
-As3 RPC lib is a library that can be used to invoke remote procedure calls using:
+as3rpclib is a library that can be used to invoke remote procedure calls using:
 
  * [AMF0](http://download.macromedia.com/pub/labs/amf/amf0_spec_121207.pdf)
  * [XML-RPC](http://www.xmlrpc.com/spec)
