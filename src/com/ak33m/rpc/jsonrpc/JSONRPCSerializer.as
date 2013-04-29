@@ -25,7 +25,7 @@ package com.ak33m.rpc.jsonrpc
 		 */
 		public static function serialize( method : String , params : Array ) : String
 		{
-			return JSON.encode( { method:method , params:params , id:Math.random() * 1000 } );
+			return com.adobe.serialization.json.JSON.encode( { method:method , params:params , id:Math.random() * 1000 } );
 		}
 		
 		/**
@@ -36,7 +36,7 @@ package com.ak33m.rpc.jsonrpc
 		 */
 		public static function deserialize( result : String ) : *
 		{
-			return JSON.decode( result );
+			return com.adobe.serialization.json.JSON.decode( result );
 		}
 	}
 }
