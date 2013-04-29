@@ -8,5 +8,6 @@
 bin-debug/*
 report/*
 bin-test/*
+bin/as3rpclib.swc
 docs/*
 .flexLibProperties
