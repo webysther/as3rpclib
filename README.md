@@ -17,6 +17,7 @@ Releases
 
 For simple use purposes, just download the ./bin/as3rpclib.swc file in respective tag and add in your lib folder.
 
+ * [*v1.0b*](https://github.com/Webysther/as3rpclib/tree/v1.0b)
  * [*v1.0a*](https://github.com/Webysther/as3rpclib/tree/v1.0a)
 
 Old versions (not recommended)
@@ -28,13 +29,8 @@ Changelog
 
 ### latest
 
- * Add project to github
- * Compiled using SDK 4.5.1 (4.5.1.21328A)
- * Fix bug's for newest SDK (> SDK 3)
- * Add class XMLRPCStruct (working)
- * New simple structure e compiled version
- * Starting add comments in all code
- * [Applied fix](http://ak33m.com/?p=50)
+ * Add SDK's in another versions
+ * Correction for JSON in SDK 4.9.1
 
 [Older versions information](https://github.com/Webysther/as3rpclib/blob/master/CHANGELOG.md) 
 
