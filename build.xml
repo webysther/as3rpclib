@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="as3rpclib" basedir="." default="sdk">
+
+	<property name="flex.home" value="C:\Program Files (x86)\Adobe\Adobe Flash Builder 4.6\sdks" />
+	<property name="flex.config" value="\frameworks\flex-config.xml" />
+	
+	<property name="flex.sdk.41" value="${flex.home}\flex_sdk_4.1.0.16076A" />
+	<property name="flex.sdk.45" value="${flex.home}\flex_sdk_4.5.1.21328A" />
+	<property name="flex.sdk.46" value="${flex.home}\flex_sdk_4.6.0.23201B" />
+	<property name="flex.sdk.49" value="${flex.home}\flex_sdk_4.9.1" />
+	
+	<macrodef name="compileSDK">
+		<attribute name="sdk"/>
+		<attribute name="version"/>
+		<attribute name="locale" default="en_US"/>
+		<sequential>
+			<echo>SDK @{version}: @{sdk}</echo>
+			
+			<java jar="@{sdk}/lib/compc.jar" dir="@{sdk}/frameworks" fork="true" failonerror="true"  >
+				<arg line="-locale=@{locale}" />
+				<arg line="-debug=false" />
+				<arg line="-namespace+=http://ak33m.com/mxml,${basedir}/manifest.xml" />
+				<arg line="-include-namespaces+=http://ak33m.com/mxml" />
+				
+				<arg value="+flexlib=@{sdk}/frameworks" />
+				<arg value="-incremental=true"/>
+				<arg value="-static-link-runtime-shared-libraries=true"/>
+				<arg value="-verbose-stacktraces=true"/>
+				<arg value="-headless-server=true"/>
+				<arg value="-source-path+=${basedir}/src" />
+				<arg value="-include-sources=${basedir}/src" />
+				<arg value="-library-path+=${basedir}/libs" />
+				<arg value="-external-library-path+=@{sdk}/frameworks/libs/framework.swc" />
+				<arg value="-output=${basedir}/bin/${ant.project.name}-sdk@{version}.swc" />
+				<arg value="-creator=Webysther" />
+			</java>
+
+			<delete file="${basedir}/bin/${ant.project.name}-sdk@{version}.swc.cache"/>
+		</sequential>
+	</macrodef>
+
+	<target name="sdk">
+		<echo>Building SDK's</echo>
+		<delete dir="${basedir}/bin" quiet="true" includeEmptyDirs="true"/>
+		<mkdir dir="${basedir}/bin"/>
+		<parallel threadCount="4">
+			<compileSDK sdk="${flex.sdk.49}" version="4.9.1" />
+			<compileSDK sdk="${flex.sdk.46}" version="4.6.0" />
+			<compileSDK sdk="${flex.sdk.45}" version="4.5.1" />
+			<compileSDK sdk="${flex.sdk.41}" version="4.1.0" />
+		</parallel>
+	</target>
+
+</project>

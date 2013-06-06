@@ -1,13 +1,17 @@
 #### `.gitignore`
 
-#Flash Builder
+bin-debug
+bin-release
+bin/as3rpclib.swc
+bin/manifest.xml
+
+.settings
 .actionScriptProperties
 .flexProperties
-.project
-.settings
-bin-debug/*
-report/*
-bin-test/*
-bin/as3rpclib.swc
-docs/*
 .flexLibProperties
+.FlexUnitSettings
+.project
+
+Icon
+Thumbs.db
+.DS_Store

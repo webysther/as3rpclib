@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<componentPackage>
+	<component id="AMFOObject" class="com.ak33m.rpc.amf0.AMF0Object" />
+	<component id="XMLRPCObject" class="com.ak33m.rpc.xmlrpc.XMLRPCObject" />
+	<component id="JSONRPCObject" class="com.ak33m.rpc.jsonrpc.JSONRPCObject" />
+</componentPackage>
