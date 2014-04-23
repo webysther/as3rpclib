@@ -24,8 +24,8 @@ Support
 Authors
 -------
 
- * Akeem Philbert - <akeemphilbert@gmail.com>
- * Webysther Faria - <webysther@gmail.com>
+ * Akeem Philbert
+ * Webysther Faria
 
 Based on the work of (between others):
 
