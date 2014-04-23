@@ -14,7 +14,7 @@ Releases
 
 For simple use purposes, just download the ./bin/as3rpclib.swc file in respective tag and add in your lib folder.
 
- * [*v1.0 stable*](https://github.com/Webysther/as3rpclib/tree/v1.0)
+ * [*v1.0 stable*](https://github.com/Webysther/as3rpclib/releases/tag/v1.0)
 
 Support
 -------
