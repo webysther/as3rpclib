@@ -1,6 +1,4 @@
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
-[![Tag](http://img.shields.io/github/release/Webysther/as3rpclib.svg)](https://github.com/Webysther/as3rpclib/releases/latest)
-[![Tip](http://img.shields.io/gittip/Webysther.svg)](https://www.gittip.com/Webysther/)
 
 as3rpclib is a library that can be used to invoke remote procedure calls using:
 
