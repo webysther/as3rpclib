@@ -6,6 +6,11 @@ as3rpclib is a library that can be used to invoke remote procedure calls using:
  * [XML-RPC](http://www.xmlrpc.com/spec)
  * [JSON-RPC](http://json-rpc.org/wiki/specification)
 
+EOL by 2020
+-------
+
+This repository is become read-only as ActionScript is reach [end-of-life](https://en.wikipedia.org/wiki/Adobe_Flash).
+
 
 Releases
 -------
